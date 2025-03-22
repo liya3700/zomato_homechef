@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/static/css/signUpStyles.css">
+</head>
+
+<body>
+    <div class="signUp-container">
+        <h1>SignUp</h1><br><br>
+        <form action="{{ url_for('signup') }}" method="POST" class="signUp-form" enctype="multipart/form-data">
+            <label>UserName</label>
+            <input type="text" name="username" required><br><br>
+
+            <label>Email</label>
+            <input type="email" name="email" required><br><br>
+
+            <label>Password</label>
+            <input type="password" name="password" required><br><br>
+
+            <input type="checkbox" name="isHomeChef">
+            <label>is Home Chef</label><br><br>
+
+            <label>Location</label>
+            <select name="location" id="location-dropdown" required>
+                <option value="">Select Location</option>
+                {% for location in locations %}
+                <option value="{{ location.id }}" data-name="{{ location.name }}">{{ location.name }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <label for="image">Upload Profile Pic:</label>
+            <input type="file" id="profile-pic" name="profile-pic" accept="image/*" required><br><br>
+
+            <button type="submit">SignUp</button>
+        </form>
+    </div>
+</body>
+
+</html>
