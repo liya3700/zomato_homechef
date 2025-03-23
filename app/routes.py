@@ -12,8 +12,9 @@ def init_routes(app):
     
     
     @app.route('/home')
-    def index():
-        return render_template('index.html')
+    def home():
+        profile_pic = request.args.get('profile_pic', "/static/images/default.jpg")
+        return render_template('home.html', profile_pic=profile_pic)
     
     
     @app.route('/login', methods=['GET', 'POST'])
@@ -25,7 +26,6 @@ def init_routes(app):
             print("MyPrint:::",user)
 
             if user:
-                # login_user(user)
                 session['user_id'] = user.id
                 if user.isHomeChef:
                     return redirect(url_for('hc_home', profile_pic=user.profile_pic))
@@ -53,20 +53,20 @@ def init_routes(app):
             
             profile_pics = request.files.getlist('profile-pic')
 
-            saved_files = []  # To store the list of saved filenames
+            saved_files = []
             fn = ''
             for image in profile_pics:
-                if image.filename:  # Check if file is not empty
+                if image.filename:
                     filename = secure_filename(image.filename)
                     fn = filename
                     print("FileName:", filename)
                     
-                    upload_folder = current_app.config.get('UPLOAD_FOLDER_PROFILE_PIC', 'uploads')  # Use default if not set
-                    os.makedirs(upload_folder, exist_ok=True)  # Ensure the folder exists
+                    upload_folder = current_app.config.get('UPLOAD_FOLDER_PROFILE_PIC', 'uploads')
+                    os.makedirs(upload_folder, exist_ok=True)
                     
                     file_path = os.path.join(upload_folder, filename)
                     image.save(file_path)
-                    saved_files.append(filename)  # Store filenames properly
+                    saved_files.append(filename)
 
             print("Saved Files:", saved_files)
                 

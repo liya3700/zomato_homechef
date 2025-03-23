@@ -1,6 +1,38 @@
 <!DOCTYPE html>
-<html>
-    <body>
-        <h1>This is Home........</h1>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Home Chef</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homeStyle.css') }}">
+</head>
+<body>
+
+    <!-- Status Bar -->
+    <header class="status-bar">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        <div class="right-buttons">
+            <img src="{{ url_for('get_profile_pic_url', filename='') }}{{ profile_pic }}" alt="Profile" class="profile-pic">
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <h1>Bringing Homemade Delights to Your Doorstep!</h1>
+        <p>Support home chefs by ordering fresh, authentic homemade meals on Zomato!</p>
+    </section>
+
+    <!-- Blood Requests Grid -->
+    <section class="all-chefs">
+        <h2>Best Home Made Foods</h2>
+        <div class="grid" id="chefsGrid">
+            <!-- Blood requests will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <script>
+        var profilePicUrl = "{{ url_for('get_profile_pic_url', filename='') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/home_script.js') }}"></script>
+</body>
 </html>
