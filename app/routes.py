@@ -1,7 +1,7 @@
 import os
 from flask import current_app, flash, redirect, render_template, request, session, url_for
 from werkzeug.utils import secure_filename
-from app.models import Location, User, db
+from app.models import Items, Location, User, db
 
 
 def init_routes(app):
@@ -16,6 +16,10 @@ def init_routes(app):
         profile_pic = request.args.get('profile_pic', "/static/images/default.jpg")
         return render_template('home.html', profile_pic=profile_pic)
     
+    @app.route('/hc_home')
+    def hc_home():
+        profile_pic = request.args.get('profile_pic', current_app.config['UPLOAD_FOLDER_PROFILE_PIC']+"/default.png")
+        return render_template('hc_home.html', profile_pic=profile_pic)
     
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -80,3 +84,48 @@ def init_routes(app):
         
         locations = Location.query.all()
         return render_template('signup.html', locations=locations)
+    
+    
+    @app.route('/addItem', methods=['GET', 'POST'])
+    def addItem():
+        if 'user_id' in session:
+            print("Logged In...........")
+        else:
+            print("Not Logged In................")
+        if request.method == 'POST':
+            if 'user_id' in session:
+                item_name = request.form['item-name']
+                desc = request.form['desc']
+                price = request.form['price']
+                item_images = request.files.getlist('item-images')
+                fileName = ''
+                for image in item_images:
+                    if image.filename != '':
+                        filename = secure_filename(image.filename)
+                        fileName = filename
+                        image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                        
+                item = Items(name=item_name,
+                                    desc=desc,
+                                    price=price,
+                                    image=fileName,
+                                    user_id=session['user_id']
+                                    )
+                    
+                try:
+                    db.session.add(item)
+                    db.session.commit()
+                    flash('Product added successfully!', 'success')
+                    # return redirect(url_for('sell_product.go_to_home'))
+                except Exception as e:
+                    db.session.rollback()
+                    flash('Product not added!', 'failed')
+                finally:
+                    db.session.close()
+            else:
+                print('User not logged in....')
+    
+        else:
+            flash('Please fill all the required fields and add at least one image.', 'error')
+
+        return render_template('addItem.html')

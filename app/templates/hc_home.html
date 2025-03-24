@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Home Chef</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hc_home_style.css') }}">
+</head>
+<body>
+
+    <header class="status-bar">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        <div class="right-buttons">
+            <img src="{{ url_for('get_profile_pic_url', filename='') }}{{ profile_pic }}" alt="Profile" class="profile-pic">
+        </div>
+    </header>
+
+
+    <section class="get-items">
+        <h2>Your Home Made food Items...</h2>
+        <div class="grid" id="itemsGrid">
+            
+        </div>
+    </section>
+
+    <script>
+        var profilePicUrl = "{{ url_for('download_file', filename='') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/hc_home_script.js') }}"></script>
+</body>
+</html>
