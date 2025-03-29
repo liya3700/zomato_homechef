@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Home Chef</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chef_details.css') }}">
+</head>
+
+<body>
+    <header class="status-bar">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        <div class="right-buttons">
+            <img src="{{ url_for('get_profile_pic_url', filename='') }}{{ profile_pic }}" alt="Profile"
+                class="profile-pic">
+        </div>
+    </header>
+
+    <div class="chef-profile">
+
+        <div class="chef-profile-div">
+            <image src="{{ url_for('get_profile_pic_url', filename='') }}{{ chef_data.profile_pic }}"
+                class="chef-pic" />
+            <h1 style="color: white;">{{chef_data.username}}</h1>
+            <h1 style="color: white;">{{chef_data.location.name}}</h1>
+        </div>
+
+    </div>
+
+    <section class="items-grid">
+
+        {% for data in datas %}
+        <!-- <h1>{{ data.user_name }}{{ data.name }}</h1> -->
+        <div class="item-card">
+
+            <image src="{{ url_for('get_profile_pic_url', filename='') }}{{ chef_data.profile_pic }}" class="item-pic" />
+            <h1 style="color: black;">{{data.name}}</h1>
+            <h1 style="color: black;">€{{data.price}}</h1>
+            <div class="order-button" onclick="showAlert()">
+                <h3 style="color: white;">Order</h3>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </section>
+
+    <script>
+        function showAlert() {
+        alert("Thank you for ordering...");
+    }
+    </script>
+
+</body>
+
+</html>
