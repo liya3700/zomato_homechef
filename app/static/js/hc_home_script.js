@@ -19,6 +19,7 @@ function loadItems() {
                     <h3>${request.name} Needed</h3>
                     <p>${request.desc}</p>
                     <p>€${request.price}</p>
+                    <button class="delete-button">Delete</button>
                 `;
                 card.onclick = function () {
                     window.location.href = "/request_detail/" + request.id;

@@ -129,3 +129,8 @@ def init_routes(app):
             flash('Please fill all the required fields and add at least one image.', 'error')
 
         return render_template('addItem.html')
+    
+    
+    @app.route('/delete_item')
+    def deleteItem():
+        pass
