@@ -1,0 +1,28 @@
+body, h1, h2, p, button {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/*Signup Form*/
+.signUp-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px; /* Optional: limits the form width */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.signUp-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

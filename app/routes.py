@@ -13,13 +13,11 @@ def init_routes(app):
     
     @app.route('/home')
     def home():
-        profile_pic = request.args.get('profile_pic', "/static/images/default.jpg")
-        return render_template('home.html', profile_pic=profile_pic)
+        return render_template('home.html', profile_pic=session['profile_pic'])
     
     @app.route('/hc_home')
     def hc_home():
-        profile_pic = request.args.get('profile_pic', current_app.config['UPLOAD_FOLDER_PROFILE_PIC']+"/default.png")
-        return render_template('hc_home.html', profile_pic=profile_pic)
+        return render_template('hc_home.html', profile_pic=session['profile_pic'])
     
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -31,6 +29,7 @@ def init_routes(app):
 
             if user:
                 session['user_id'] = user.id
+                session['profile_pic'] = user.profile_pic
                 if user.isHomeChef:
                     return redirect(url_for('hc_home', profile_pic=user.profile_pic))
                 else:
@@ -131,6 +130,12 @@ def init_routes(app):
         return render_template('addItem.html')
     
     
-    @app.route('/delete_item')
-    def deleteItem():
-        pass
+    @app.route('/delete_item', methods=['POST', 'GET'])
+    def delete(item_id):
+        item = Items.query.get(item_id)
+        if item:
+            db.session.delete(item)
+            db.session.commit()
+            return {'message': 'Item deleted successfully'}, 200
+        else:
+            return {'message': 'Item not found'}, 404
