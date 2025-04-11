@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Place Order</title>
+  <link rel="stylesheet" href="/static/styles/complete_order_style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Place Your Order</h2>
+
+    <div class="food-preview">
+      <img id="foodImage" src="{{ url_for('download_file', filename='') }}{{ food.image }}" alt="Food Image" />
+      <h3 id="foodName">{{food.name}}</h3>
+    </div>
+
+    <form id="orderForm">
+      <label for="quantity">Phone Number:</label>
+      <input type="text" id="quantity" name="quantity" required />
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" required />
+
+      <label for="address">Delivery Address:</label>
+      <textarea id="address" name="address" rows="3" required></textarea>
+
+      <button type="submit">Place Order</button>
+    </form>
+
+    <p id="successMsg"></p>
+  </div>
+
+  <script src="/static/js/complete_order.js"></script>
+</body>
+</html>

@@ -37,9 +37,11 @@
             <image src="{{ url_for('download_file', filename='') }}{{ data.image }}" class="item-pic" />
             <h1 style="color: black;">{{data.name}}</h1>
             <h1 style="color: black;">€{{data.price}}</h1>
-            <div class="order-button" onclick="showAlert()">
-                <h3 style="color: white;">Order</h3>
-            </div>
+            <a href="{{ url_for('complete_order', item_id=data.id) }}">
+                <div class="order-button">
+                    <h3 style="color: white;">Order</h3>
+                </div>
+            </a>
 
         </div>
         {% endfor %}
@@ -48,8 +50,8 @@
 
     <script>
         function showAlert() {
-        alert("Thank you for ordering...");
-    }
+            alert("Thank you for ordering...");
+        }
     </script>
 
 </body>

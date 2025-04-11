@@ -169,3 +169,8 @@ def init_routes(app):
             return {'message': 'Item deleted successfully'}, 200
         else:
             return {'message': 'Item not found'}, 404
+        
+    @app.route('/complete_order<int:item_id>', methods=['GET', 'POST'])
+    def complete_order(item_id):
+        item = Items.query.get(item_id)
+        return render_template('complete_order.html', food=item)
