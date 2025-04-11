@@ -30,13 +30,13 @@ function loadItems() {
                     event.stopPropagation();
                     const confirmDelete = confirm(`Are you sure you want to delete "${request.name}"?`);
                     if (confirmDelete) {
-                        fetch(`/delete_book/${book.book_id}`)
+                        fetch(`/delete_item/${request.id}`)
                             .then(response => {
                                 if (response.ok) {
-                                    bookCard.remove();
+                                    card.remove();
                                     location.reload();
                                 } else {
-                                    console.error('Failed to delete');
+                                    console.error('Failed to delete', error);
                                 }
                             })
                             .catch(error => console.error('Error deleting:', error));

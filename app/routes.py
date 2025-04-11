@@ -160,7 +160,7 @@ def init_routes(app):
         return render_template('chef_detail_page.html', datas=chef_items, chef_data=chef, profile_pic = me.profile_pic)
     
 
-    @app.route('/delete_item', methods=['POST', 'GET'])
+    @app.route('/delete_item/<int:item_id>', methods=['POST', 'GET'])
     def delete(item_id):
         item = Items.query.get(item_id)
         if item:
