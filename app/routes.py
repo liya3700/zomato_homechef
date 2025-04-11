@@ -138,7 +138,27 @@ def init_routes(app):
         return response
     
 
+    @app.route('/get_all_chefs')
+    def getAllChefs():
+        chefs = User.query.filter_by(isHomeChef=True)
+        chefs_dict = [chef.to_dict() for chef in chefs]
+        response = jsonify({'status':'success','msg': 'success!!', 'data': chefs_dict})
+        return response
 
+    @app.route('/get_location/<int:location_id>', methods=['GET'])
+    def getLocationFromId(location_id):
+        location = Location.query.get(location_id)
+        if location:
+            return jsonify({"location_name": location.name})
+        return jsonify({"error": "Location not found"}), 404
+    
+    @app.route('/getItemsByChefId/<int:id>', methods=['GET'])
+    def getItemsByChefId(id):
+        chef_items = Items.query.filter(Items.user_id==id).all()
+        chef = User.query.get(id)
+        me = User.query.get(session['user_id'])
+        return render_template('chef_detail_page.html', datas=chef_items, chef_data=chef, profile_pic = me.profile_pic)
+    
 
     @app.route('/delete_item', methods=['POST', 'GET'])
     def delete(item_id):
