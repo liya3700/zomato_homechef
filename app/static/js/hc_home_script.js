@@ -30,9 +30,16 @@ function loadItems() {
                     event.stopPropagation();
                     const confirmDelete = confirm(`Are you sure you want to delete "${request.name}"?`);
                     if (confirmDelete) {
-                        fetch(`/delete_item/${request.id}`)
-                        card.remove();
-                        location.reload
+                        fetch(`/delete_book/${book.book_id}`)
+                            .then(response => {
+                                if (response.ok) {
+                                    bookCard.remove();
+                                    location.reload();
+                                } else {
+                                    console.error('Failed to delete');
+                                }
+                            })
+                            .catch(error => console.error('Error deleting:', error));
                     }
                 });
             });
