@@ -1,5 +1,5 @@
 import os
-from flask import current_app, flash, redirect, render_template, request, session, url_for
+from flask import current_app, flash, jsonify, redirect, render_template, request, session, url_for
 from werkzeug.utils import secure_filename
 from app.models import Items, Location, User, db
 
@@ -130,6 +130,16 @@ def init_routes(app):
         return render_template('addItem.html')
     
     
+    @app.route('/get_all_items')
+    def getAllItems():
+        items = Items.query.all()
+        items_dict = [item.to_dict() for item in items]
+        response = jsonify({'status':'success','msg': 'success!!', 'data': items_dict})
+        return response
+    
+
+
+
     @app.route('/delete_item', methods=['POST', 'GET'])
     def delete(item_id):
         item = Items.query.get(item_id)

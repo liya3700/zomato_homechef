@@ -37,5 +37,5 @@ function loadItems() {
                 });
             });
         })
-        .catch(error => console.error("Error loading blood requests:", error));
+        .catch(error => console.error("Error loading foods:", error));
 }

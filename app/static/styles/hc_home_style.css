@@ -8,7 +8,7 @@ body, h1, h2, p, button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FFFFFF;
+    background-color: #948787;
     padding: 15px 20px;
     color: white;
     position: fixed;
@@ -49,7 +49,7 @@ body, h1, h2, p, button {
 .get-items {
     padding: 20px;
     text-align: center;
-    margin-top: 70px;
+    margin-top: 100px;
     margin-left: 200px;
     margin-right: 200px;
 }
