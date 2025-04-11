@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zomato Home Chef</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/chef_details.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/chef_details.css') }}">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
         <!-- <h1>{{ data.user_name }}{{ data.name }}</h1> -->
         <div class="item-card">
 
-            <image src="{{ url_for('get_profile_pic_url', filename='') }}{{ chef_data.profile_pic }}" class="item-pic" />
+            <image src="{{ url_for('download_file', filename='') }}{{ data.image }}" class="item-pic" />
             <h1 style="color: black;">{{data.name}}</h1>
             <h1 style="color: black;">€{{data.price}}</h1>
             <div class="order-button" onclick="showAlert()">
