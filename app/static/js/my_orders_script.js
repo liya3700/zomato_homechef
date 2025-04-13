@@ -1,16 +1,16 @@
-function updateOrder(orderId, action) {
-    fetch(`/update-order/${orderId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status: action }),
-    })
+function updateOrder(orderId, status) {
+  console.log("OrderId" + status)
+  const formData = new FormData();
+  formData.append("status", status)
+  fetch(`/update-order/${orderId}`, {
+    method: 'POST',
+    body: formData,
+  })
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        document.getElementById(`status-${orderId}`).innerText = action;
+        location.reload();
+        document.getElementById(`status-${orderId}`).innerText = status;
       }
     });
-  }
-  
+}

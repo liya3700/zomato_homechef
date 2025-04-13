@@ -72,5 +72,8 @@ class Order(db.Model):
             'quantity': self.quantity,
             'address': self.address,
             'mobile': self.mobile,
-            'status': self.status
+            'status': self.status,
+            'userName': self.user.username,
+            'itemName': self.item.name,
+            'itemImage': self.item.image
         }

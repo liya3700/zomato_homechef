@@ -177,10 +177,26 @@ def init_routes(app):
     
     @app.route('/orders')
     def my_orders():
-        chef_id = session.get('user_id')
-        orders = Order.query.join(Items).filter(Items.id == chef_id).all()
-        print(orders)
-        return render_template('my_orders.html', orders=orders)
+        
+        if 'user_id' in session:
+            chef_id = session.get('user_id')
+            orders = Order.query.join(Items).join(User).filter(User.id == chef_id).all()
+            orders_data = [order.to_dict() for order in orders]
+            return render_template('my_orders.html', orders=orders_data)
+        else:
+            return redirect(url_for('login'))
+    
+    
+    @app.route('/update-order/<int:order_id>', methods=['POST'])
+    def update_order(order_id):
+        status = request.form.get('status')
+
+        order = Order.query.get(order_id)
+        if order and order.status == 'Pending':
+            order.status = status
+            db.session.commit()
+            return jsonify(success=True)
+        return jsonify(success=False)
     
     
     @app.route('/place-order', methods=['POST'])

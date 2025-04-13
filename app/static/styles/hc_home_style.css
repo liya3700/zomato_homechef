@@ -108,3 +108,8 @@ body, h1, h2, p, button {
     font-size: 14px;
     margin: 5px 0;
 }
+
+.right-buttons a{
+    background-color: #948787;
+
+}

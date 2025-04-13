@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Order Notifications</title>
-  <link rel="stylesheet" href="/static/styles/notifications.css" />
+  <link rel="stylesheet" href="/static/styles/my_orders_style.css" />
 </head>
+
 <body>
+
+  <header class="status-bar">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+    <div class="right-buttons">
+      <img src="{{ url_for('get_profile_pic_url', filename='') }}{{ profile_pic }}" alt="Profile" class="profile-pic">
+    </div>
+  </header>
+
   <div class="container">
-    <h2>Incoming Orders</h2>
+    <h2>My Orders</h2>
 
     {% for order in orders %}
-    <div class="order-card" id="order-{{ order.id }}">
-      <img src="{{ order.food.image_url }}" alt="{{ order.food.name }}">
+    <div class="order-card">
+      <img src="{{ url_for('download_file', filename='') }}{{ order.itemImage }}" alt="{{ order.itemName }}">
       <div class="details">
-        <h3>{{ order.food.name }}</h3>
+        <h3>{{ order.itemName }}</h3>
         <p><strong>Quantity:</strong> {{ order.quantity }}</p>
-        <p><strong>Ordered by:</strong> {{ order.user.username }}</p>
+        <p><strong>Ordered by:</strong> {{ order.userName }}</p>
         <p><strong>Status:</strong> <span id="status-{{ order.id }}">{{ order.status }}</span></p>
-        
+
         {% if order.status == 'Pending' %}
         <button onclick="updateOrder('{{ order.id }}', 'Accepted')">Accept</button>
-        <button onclick="updateOrder('{{ order.id }}', 'Rejected')">Reject</button>
+        <button onclick="updateOrder('{{ order.id }}', 'Declined')">Reject</button>
         {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
 
-  <script src="/static/js/notifications.js"></script>
+  <script src="/static/js/my_orders_script.js"></script>
 </body>
+
 </html>

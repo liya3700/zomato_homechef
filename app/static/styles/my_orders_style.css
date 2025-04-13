@@ -2,12 +2,55 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
     margin: 0;
-    padding: 30px;
+    padding: 0px;
   }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #948787;
+    padding: 15px 20px;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    height: 60px;
+}
+
+.right-buttons button {
+    margin-right: 60px;
+    padding: 8px 15px;
+    border: none;
+    background: #c8202d;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.right-buttons button:hover {
+    background: #c9302c;
+    color: white;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    margin-right: 60px;
+    margin-top: 8px;
+    border-radius: 50%;
+    object-fit: cover;
+}
   
   .container {
     max-width: 800px;
     margin: auto;
+    padding-top: 120px;
   }
   
   h2 {
