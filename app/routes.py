@@ -1,7 +1,7 @@
 import os
 from flask import current_app, flash, jsonify, redirect, render_template, request, session, url_for
 from werkzeug.utils import secure_filename
-from app.models import Items, Location, User, db
+from app.models import Items, Location, Order, User, db
 
 
 def init_routes(app):
@@ -170,7 +170,37 @@ def init_routes(app):
         else:
             return {'message': 'Item not found'}, 404
         
-    @app.route('/complete_order<int:item_id>', methods=['GET', 'POST'])
+    @app.route('/complete_order/<int:item_id>', methods=['GET', 'POST'])
     def complete_order(item_id):
         item = Items.query.get(item_id)
-        return render_template('complete_order.html', food=item)
+        return render_template('complete_order.html', food=item.to_dict())
+    
+    @app.route('/orders')
+    def my_orders():
+        chef_id = session.get('user_id')
+        orders = Order.query.join(Items).filter(Items.id == chef_id).all()
+        print(orders)
+        return render_template('my_orders.html', orders=orders)
+    
+    
+    @app.route('/place-order', methods=['POST'])
+    def place_order():
+        user_id = session.get('user_id')
+        chef_id = request.form.get('chef_id')
+        item_id = request.form.get('item_id')
+        address = request.form.get('address')
+        quantity = request.form.get('quantity')
+        mobile = request.form.get('mobile')
+
+        new_order = Order(
+            user_id=user_id,
+            chef_id=chef_id,
+            item_id=item_id,
+            address=address,
+            quantity=quantity,
+            mobile=mobile
+        )
+        db.session.add(new_order)
+        db.session.commit()
+
+        return jsonify({'success': True})

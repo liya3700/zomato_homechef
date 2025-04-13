@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Notifications</title>
+  <link rel="stylesheet" href="/static/styles/notifications.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Incoming Orders</h2>
+
+    {% for order in orders %}
+    <div class="order-card" id="order-{{ order.id }}">
+      <img src="{{ order.food.image_url }}" alt="{{ order.food.name }}">
+      <div class="details">
+        <h3>{{ order.food.name }}</h3>
+        <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+        <p><strong>Ordered by:</strong> {{ order.user.username }}</p>
+        <p><strong>Status:</strong> <span id="status-{{ order.id }}">{{ order.status }}</span></p>
+        
+        {% if order.status == 'Pending' %}
+        <button onclick="updateOrder('{{ order.id }}', 'Accepted')">Accept</button>
+        <button onclick="updateOrder('{{ order.id }}', 'Rejected')">Reject</button>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <script src="/static/js/notifications.js"></script>
+</body>
+</html>

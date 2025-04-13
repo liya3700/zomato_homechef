@@ -15,16 +15,16 @@
     </div>
 
     <form id="orderForm">
-      <label for="quantity">Phone Number:</label>
+      <label for="quantity">Quantity:</label>
       <input type="text" id="quantity" name="quantity" required />
 
-      <label for="phone">Phone Number:</label>
-      <input type="text" id="phone" name="phone" required />
+      <label for="mobile">Phone Number:</label>
+      <input type="text" id="mobile" name="mobile" required />
 
       <label for="address">Delivery Address:</label>
       <textarea id="address" name="address" rows="3" required></textarea>
 
-      <button type="submit">Place Order</button>
+      <button type="submit" data-id="{{ food.id }}" data-chef-id="{{ food.user_id }}">Place Order</button>
     </form>
 
     <p id="successMsg"></p>

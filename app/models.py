@@ -47,5 +47,30 @@ class Items(db.Model):
             'desc': self.desc,
             'image': self.image,
             'price': self.price,
+            'user_id': self.user.id,
             'user_name': self.user.username
+        }
+        
+        
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    chef_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+    address = db.Column(db.String(300), nullable=False)
+    quantity = db.Column(db.String(10), nullable=False)
+    mobile = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.Enum('Pending', 'Accepted', 'Declined', name='order_status'), default='Pending')
+
+    user = db.relationship('User', foreign_keys=[user_id])
+    chef = db.relationship('User', foreign_keys=[chef_id])
+    item = db.relationship('Items', foreign_keys=[item_id])
+    
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'quantity': self.quantity,
+            'address': self.address,
+            'mobile': self.mobile,
+            'status': self.status
         }
