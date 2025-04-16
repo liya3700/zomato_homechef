@@ -16,7 +16,7 @@ function loadItems() {
 
                 card.innerHTML = `
                     <img src="${profilePicUrl + request.image}" alt="${request.name}" class="card-image">
-                    <h3>${request.name} Needed</h3>
+                    <h3>${request.name}</h3>
                     <p>${request.desc}</p>
                     <p>€${request.price}</p>
                     <button class="delete-button">Delete</button>
@@ -43,6 +43,18 @@ function loadItems() {
                     }
                 });
             });
+
+
+            let addItemCard = document.createElement("div");
+            addItemCard.classList.add("request-card", "add-item-card");
+            addItemCard.innerHTML = `
+                <button class="add-item-button">Add Item</button>
+            `;
+            addItemCard.onclick = function () {
+                window.location.href = "/addItem";
+            };
+            grid.appendChild(addItemCard);
+
         })
         .catch(error => console.error("Error loading foods:", error));
 }

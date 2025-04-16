@@ -21,6 +21,13 @@ body, h1, h2, p, button {
     height: 60px;
 }
 
+.right-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+}
+
 .right-buttons button {
     margin-right: 60px;
     padding: 8px 15px;
@@ -41,7 +48,6 @@ body, h1, h2, p, button {
     width: 40px;
     height: 40px;
     margin-right: 60px;
-    margin-top: 8px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -112,4 +118,30 @@ body, h1, h2, p, button {
 .right-buttons a{
     background-color: #948787;
 
+}
+
+
+
+.add-item-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f3f3;
+    border: 2px dashed #aaa;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-item-card:hover {
+    background-color: #e0e0e0;
+}
+
+.add-item-button {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }

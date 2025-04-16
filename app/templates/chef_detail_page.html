@@ -10,10 +10,15 @@
 
 <body>
     <header class="status-bar">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        <a href="/home">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+        </a>
         <div class="right-buttons">
             <img src="{{ url_for('get_profile_pic_url', filename='') }}{{ profile_pic }}" alt="Profile"
                 class="profile-pic">
+            <a href="/logout">
+                <button id="logout">Logout</button>
+            </a>
         </div>
     </header>
 
