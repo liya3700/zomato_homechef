@@ -1,4 +1,5 @@
 import os
+import uuid
 from flask import current_app, flash, jsonify, redirect, render_template, request, session, url_for
 from werkzeug.utils import secure_filename
 from app.models import Items, Location, Order, User, db
@@ -61,13 +62,13 @@ def init_routes(app):
             for image in profile_pics:
                 if image.filename:
                     filename = secure_filename(image.filename)
-                    fn = filename
+                    unique_filename = f"{uuid.uuid4().hex}_{filename}"
                     print("FileName:", filename)
                     
                     upload_folder = current_app.config.get('UPLOAD_FOLDER_PROFILE_PIC', 'uploads')
                     os.makedirs(upload_folder, exist_ok=True)
                     
-                    file_path = os.path.join(upload_folder, filename)
+                    file_path = os.path.join(upload_folder, unique_filename)
                     image.save(file_path)
                     saved_files.append(filename)
 
